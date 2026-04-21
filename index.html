@@ -735,6 +735,95 @@
       line-height: 1.72;
     }
 
+    .comment-stack,
+    .analysis-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .comment-section,
+    .analysis-item {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(17, 33, 29, 0.08);
+    }
+
+    .comment-section.is-correct,
+    .analysis-item.is-correct {
+      background: linear-gradient(180deg, var(--success-soft), rgba(255, 255, 255, 0.98));
+      border-color: rgba(24, 127, 94, 0.18);
+    }
+
+    .comment-section.is-selected,
+    .analysis-item.is-selected {
+      background: linear-gradient(180deg, var(--danger-soft), rgba(255, 255, 255, 0.98));
+      border-color: rgba(176, 79, 79, 0.18);
+    }
+
+    .comment-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .comment-section-header h4,
+    .analysis-item h4 {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    .comment-option-ref {
+      margin-bottom: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: rgba(17, 33, 29, 0.045);
+      color: var(--text);
+      font-size: 0.94rem;
+      line-height: 1.6;
+    }
+
+    .analysis-accordion {
+      border-radius: 18px;
+      border: 1px solid rgba(17, 33, 29, 0.08);
+      background: rgba(255, 255, 255, 0.72);
+      overflow: hidden;
+    }
+
+    .analysis-accordion summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-weight: 700;
+      color: var(--accent-strong);
+    }
+
+    .analysis-accordion summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .analysis-accordion summary::after {
+      content: "⌄";
+      color: var(--accent-strong);
+      transition: transform var(--transition);
+      flex-shrink: 0;
+    }
+
+    .analysis-accordion[open] summary::after {
+      transform: rotate(180deg);
+    }
+
+    .analysis-accordion-body {
+      padding: 0 18px 18px;
+    }
+
     .side-rail {
       display: grid;
       gap: 16px;
@@ -1553,6 +1642,275 @@
       }
     ];
 
+    const expandedCommentary = {
+      1: {
+        comentariosAlternativas: {
+          A: "Não se trata de rastreamento, e sim de investigação de mulher sintomática.",
+          B: "A ultrassonografia pode complementar, mas não substitui a mamografia diagnóstica como exame inicial de orientação nessa situação.",
+          C: "A ressonância não é exame de primeira linha para nódulo palpável suspeito em cenário ambulatorial inicial.",
+          D: "Em paciente sintomática com suspeita clínica de câncer de mama, a mamografia passa a ter finalidade diagnóstica."
+        }
+      },
+      2: {
+        comentariosAlternativas: {
+          A: "O carcinoma ductal in situ costuma ser não invasivo e não produz esse quadro inflamatório exuberante.",
+          B: "O carcinoma lobular geralmente cursa com espessamento ou assimetria, não com inflamação difusa típica.",
+          C: "Tumor phyllodes cresce rápido, mas costuma se manifestar como massa expansiva, e não como quadro de mama inflamatória.",
+          D: "O conjunto de eritema difuso, edema, endurecimento e progressão rápida é clássico de carcinoma inflamatório.",
+          E: "Fibroadenoma é lesão benigna, bem delimitada, e não explica edema cutâneo difuso nem casca de laranja."
+        }
+      },
+      3: {
+        comentariosAlternativas: {
+          A: "Em lesão francamente suspeita, não se deve apenas esperar a mamografia para depois decidir toda a conduta.",
+          B: "Lesão palpável suspeita deve ser confirmada histologicamente, idealmente por biópsia com agulha grossa, guiada se necessário.",
+          C: "A ressonância pode ter papel complementar, mas não é o exame principal para confirmação diagnóstica inicial.",
+          D: "Cisto mamário tende a ser mais bem delimitado e não costuma ter a consistência endurecida descrita."
+        }
+      },
+      4: {
+        comentariosAlternativas: {
+          A: "A afirmativa II superestima os riscos para BRCA1 e, por isso, a combinação I + II não é a melhor.",
+          B: "A I está de acordo com a associação de BRCA a pâncreas e próstata; a III reproduz, em lógica de prova, os riscos clássicos atribuídos ao BRCA2.",
+          C: "A II não é aceita como correta no gabarito porque traz valores excessivos para BRCA1.",
+          D: "Nem todas as afirmativas estão corretas; a II é o ponto problemático.",
+          E: "A I e a III são consideradas verdadeiras no contexto da questão."
+        }
+      },
+      5: {
+        comentariosAlternativas: {
+          A: "BRCA1 aumenta de forma importante o risco de câncer de mama e de ovário.",
+          B: "Câncer colorretal não é a associação clássica principal do BRCA1.",
+          C: "O aumento de risco clássico do BRCA1 não é descrito prioritariamente para endométrio.",
+          D: "Nem intestino nem endométrio representam a dupla clássica associada ao BRCA1."
+        }
+      },
+      6: {
+        comentariosAlternativas: {
+          A: "Baixo grau histológico costuma estar ligado a melhor prognóstico, e não a maior risco de recidiva.",
+          B: "Alta expressão de receptores hormonais geralmente associa-se a comportamento biológico mais favorável.",
+          C: "Tumores entre 1 e 2 cm, isoladamente, não são o principal marcador listado de alto risco entre as opções.",
+          D: "Ki-67 elevado sugere maior atividade proliferativa e se associa a maior agressividade tumoral.",
+          E: "Ausência de invasão vascular não aumenta risco; em geral, a presença de invasão vascular é que piora o prognóstico."
+        }
+      },
+      7: {
+        comentariosAlternativas: {
+          A: "BI-RADS 5 implica probabilidade de malignidade acima de 95%, e não entre 50% e 95%.",
+          B: "Em mulher pré-menopausada com tumor luminal, o tamoxifeno é opção endócrina adjuvante clássica.",
+          C: "Trastuzumabe é indicado para doença HER2-positiva; aqui o HER2 é escore 0.",
+          D: "Após cirurgia conservadora, a regra moderna para margem em invasivo é 'no ink on tumor', não margem de 1 cm para dispensar radioterapia."
+        }
+      },
+      8: {
+        comentariosAlternativas: {
+          A: "Nuliparidade aumenta o tempo de exposição hormonal ao longo da vida e é fator de risco conhecido.",
+          B: "Contraceptivo oral tem relação mais modesta e não supera a nuliparidade entre as opções apresentadas.",
+          C: "Menarca precoce é fator de risco, mas o gabarito considera a nuliparidade a opção mais fortemente relacionada entre as listadas.",
+          D: "Menarca tardia não aumenta o risco; em geral, tende a ser fator protetor.",
+          E: "Amamentação prolongada reduz risco, não aumenta."
+        }
+      },
+      9: {
+        comentariosAlternativas: {
+          A: "BRCA1 não tem padrão recessivo ligado ao X.",
+          B: "A transmissão é autossômica dominante, mas não com baixa penetrância; a penetrância é alta.",
+          C: "BRCA1 é classicamente descrito como autossômico dominante com elevada penetrância.",
+          D: "Não se trata de herança autossômica recessiva.",
+          E: "Não é um gene ligado ao X."
+        }
+      },
+      10: {
+        comentariosAlternativas: {
+          A: "Menarca tardia não é fator de risco; obesidade sim, mas a combinação torna a alternativa errada.",
+          B: "BRCA1 aumenta risco, porém menopausa precoce não é fator de risco típico.",
+          C: "Multiparidade tende a reduzir risco, e fibroadenoma simples não é fator de risco clássico importante.",
+          D: "Nuliparidade e consumo regular de álcool são fatores epidemiologicamente reconhecidos."
+        }
+      },
+      11: {
+        comentariosAlternativas: {
+          A: "Em triplo negativo localmente avançado, quimioterapia neoadjuvante costuma ser estratégica antes da cirurgia.",
+          B: "Hormonioterapia não tem papel em tumor triplo negativo.",
+          C: "A parte da neoadjuvância é adequada, mas hormonioterapia continua sem indicação nesse subtipo.",
+          D: "A neoadjuvância pode reduzir volume tumoral e permitir cirurgia conservadora, seguida de abordagem axilar e radioterapia, se houver boa resposta e viabilidade técnica.",
+          E: "Hormonioterapia não trata tumor triplo negativo e não substitui o tratamento sistêmico indicado."
+        }
+      },
+      12: {
+        comentariosAlternativas: {
+          C: "No seguimento de câncer de mama, a mamografia da mama remanescente deve ser mantida anualmente; não se indica encurtar rotineiramente para semestral nem espaçar excessivamente."
+        }
+      },
+      13: {
+        comentariosAlternativas: {
+          A: "A maioria dos casos é esporádica por mutações somáticas; as mutações germinativas hereditárias representam minoria.",
+          B: "Menarca tardia, menopausa precoce, multiparidade e gestação precoce não compõem o perfil clássico de maior risco.",
+          C: "O achado típico é nódulo indolor, endurecido, irregular e por vezes aderido aos planos profundos.",
+          D: "Autoexame não é método de rastreamento populacional eficaz, e ultrassonografia não substitui a mamografia no rastreio."
+        }
+      },
+      14: {
+        comentariosAlternativas: {
+          A: "Com doença regional avançada, a cirurgia imediata isolada não costuma ser a melhor estratégia inicial.",
+          B: "O quadro sugere doença localmente avançada, em que quimioterapia primária/neoadjuvante é conduta adequada.",
+          C: "Radioterapia isolada não é tratamento inicial padrão para esse cenário.",
+          D: "Cirurgia conservadora com linfonodo sentinela não é apropriada diante de acometimento linfonodal avançado."
+        }
+      },
+      15: {
+        comentariosAlternativas: {
+          A: "A afirmativa I é compatível, mas a II não; portanto, I + II não fecha a resposta.",
+          B: "Calcificações distróficas e células ductais pleomórficas são achados esperados no CDIS de alto grau tipo comedo.",
+          C: "A II é a afirmativa errada, porque pequenas células soltas não são o padrão mais característico.",
+          D: "Nem todas as três afirmativas estão corretas.",
+          E: "As afirmativas I e III são aceitas como verdadeiras."
+        }
+      },
+      16: {
+        comentariosAlternativas: {
+          A: "Carcinoma tubular costuma ser pequeno e de bom prognóstico, mas não é o protótipo mais lembrado de pseudobenignidade.",
+          B: "Carcinoma medular pode ser circunscrito, porém a alternativa mais clássica aqui é a mucinosa.",
+          C: "O carcinoma mucinoso frequentemente tem contornos relativamente bem definidos e pode simular lesão benigna na imagem.",
+          D: "Carcinoma metaplásico costuma ser mais agressivo e menos tipicamente confundido com benignidade.",
+          E: "O papilar invasivo entra em diferencial, mas a resposta clássica desta questão é o mucinoso."
+        }
+      },
+      17: {
+        comentariosAlternativas: {
+          A: "Há, sim, descrição de linfadenopatia reacional após vacinação contra Covid-19.",
+          B: "Linfadenopatia regional continua tendo valor clínico e não deve ser simplesmente banalizada.",
+          C: "A adenopatia pode ser vacinal se for ipsilateral, mas a investigação de suspeita oncológica deve seguir quando indicada.",
+          D: "Nem toda LAP pós-vacina exige biópsia imediata; a interpretação deve considerar contexto e lateralidade."
+        }
+      },
+      18: {
+        comentariosAlternativas: {
+          A: "Mamotomia não é a etapa inicial padrão para toda lesão palpável suspeita.",
+          B: "A ultrassonografia pode ser útil, mas em mulher acima de 40 anos a mamografia bilateral é etapa central da investigação.",
+          C: "Nessa faixa etária, nódulo sólido palpável deve ser avaliado com mamografia bilateral, geralmente em combinação posterior com outros métodos conforme achados.",
+          D: "Não se indica tratamento cirúrgico e radioterapia sem adequada elucidação diagnóstica."
+        }
+      },
+      19: {
+        comentariosAlternativas: {
+          A: "O carcinoma inflamatório tem pior prognóstico que a apresentação clássica, mesmo com tratamento multimodal.",
+          B: "Em carcinoma inflamatório, a biópsia do linfonodo sentinela não é recomendada como estratégia padrão.",
+          C: "Se houver receptores hormonais positivos, a hormonioterapia adjuvante pode estar indicada.",
+          D: "O diagnóstico é clínico, mas a confirmação histopatológica é necessária.",
+          E: "Na classificação AJCC, carcinoma inflamatório é T4d, e não T2d."
+        }
+      },
+      20: {
+        comentariosAlternativas: {
+          A: "No contexto da questão e das opções dadas, tamoxifeno é a estratégia adjuvante respaldada para reduzir recorrência em doença RH positiva.",
+          B: "Radioterapia exclusiva não contempla o componente endócrino relevante nessa paciente RH positiva.",
+          C: "Inibidor de aromatase pode ser opção em cenários específicos, mas a combinação apresentada não é a melhor resposta do item.",
+          D: "Quimioterapia não faz parte do tratamento adjuvante habitual do CDIS."
+        }
+      },
+      21: {
+        comentariosAlternativas: {
+          A: "Autoexame não é o método de rastreamento mais eficaz para diagnóstico de câncer de mama.",
+          B: "Mamografia é excelente para rastreio, mas a confirmação diagnóstica depende do exame histopatológico.",
+          C: "BI-RADS 3 não equivale a regra universal que descarte biópsia em qualquer contexto clínico.",
+          D: "Não se deve indicar tratamento oncológico definitivo sem confirmação histológica.",
+          E: "O padrão-ouro para diagnóstico é o exame histopatológico."
+        }
+      },
+      22: {
+        comentariosAlternativas: {
+          A: "Mamografia semestral não é a principal conduta redutora de risco em portadora de BRCA1 já identificada.",
+          B: "Mastectomia bilateral redutora de risco e ooforectomia bilateral fazem parte das estratégias profiláticas clássicas em portadoras de BRCA1.",
+          C: "Ressonância anual pode entrar no rastreamento, mas não substitui a discussão de cirurgia redutora de risco.",
+          D: "Intensificar mamografia e ultrassonografia não reduz risco da mesma forma que a estratégia profilática cirúrgica."
+        }
+      },
+      23: {
+        comentariosAlternativas: {
+          A: "Em axila clinicamente negativa, linfadenectomia axilar seria excesso inicial de tratamento.",
+          B: "Mastectomia radical modificada com linfadenectomia não é obrigatória para tumor pequeno com possibilidade de conservação.",
+          C: "Setorectomia com biópsia do linfonodo sentinela e radioterapia é abordagem local adequada para tumor inicial com axila negativa.",
+          D: "Se a opção é mastectomia, o sentinela até pode ser feito, mas essa não é a melhor resposta diante do cenário apresentado."
+        }
+      },
+      24: {
+        comentariosAlternativas: {
+          A: "BRCA1 relaciona-se a salpingo-ooforectomia profilática, APC à proctocolectomia total, e CDH1 à gastrectomia total profilática.",
+          B: "APC não se associa classicamente a hemicolectomia direita isolada, e CDH1 não se trata com cirurgia de Whipple.",
+          C: "Histerectomia total e tireoidectomia total não correspondem a esse trio gênico.",
+          D: "Em APC, a cirurgia profilática não é hemicolectomia esquerda; em CDH1, a profilaxia clássica é gastrectomia total.",
+          E: "As cirurgias citadas não correspondem às síndromes hereditárias em questão."
+        }
+      },
+      25: {
+        comentariosAlternativas: {
+          A: "O DIU de cobre é método eficaz, não hormonal, e geralmente preferido em mulheres com história recente de câncer de mama.",
+          B: "Anticoncepcional oral combinado contém hormônios e não é a opção de escolha nesse contexto.",
+          C: "Implante com levonorgestrel envolve progestagênio e costuma ser evitado em cenário oncológico mamário recente.",
+          D: "Medroxiprogesterona de depósito também é método hormonal e não é a melhor opção aqui."
+        }
+      },
+      26: {
+        comentariosAlternativas: {
+          A: "Tumor triplo negativo não recebe hormonioterapia nem trastuzumabe.",
+          B: "Luminal B HER2-negativo não justificaria uso de trastuzumabe.",
+          C: "Luminal A é RH positivo, porém tipicamente HER2 negativo; novamente, não explica trastuzumabe.",
+          D: "O uso de trastuzumabe aponta para doença HER2 positiva, e o uso de inibidor de aromatase sugere também expressão hormonal: padrão luminal HER2-positivo."
+        }
+      },
+      27: {
+        comentariosAlternativas: {
+          A: "Adenomastectomia profilática pode ser discutida, mas não deve ser colocada como obrigatória e automática para toda paciente.",
+          B: "A penetrância é variável; o risco é alto, porém não idêntico para todas as portadoras.",
+          C: "Rastreamento mais frequente favorece detecção precoce, mas não previne o aparecimento da doença.",
+          D: "Tamoxifeno ou raloxifeno podem reduzir risco em alguns contextos, mas a orientação central pedida pelo item é sobre penetrância variável."
+        }
+      },
+      28: {
+        comentariosAlternativas: {
+          A: "O risco não cai após 70 anos dessa forma, e o rastreamento populacional do INCA não se define por essa justificativa.",
+          B: "Obesidade, especialmente após a menopausa, aumenta o risco de câncer de mama.",
+          C: "Câncer hereditário representa minoria dos casos, não 50% a 70%.",
+          D: "Hiperplasia ductal usual sem atipia aumenta risco de forma discreta, não em quatro vezes como regra.",
+          E: "Alta densidade mamográfica é fator de risco reconhecido, com aumento relativo de risco em torno de 2 a 4 vezes."
+        }
+      },
+      29: {
+        comentariosAlternativas: {
+          A: "CDIS de alto grau tem maior risco de progressão que formas de baixo grau, mas a conduta da questão não se resume a essa afirmação.",
+          B: "Mamotomia diagnóstica não significa tratamento definitivo do CDIS.",
+          C: "Tamoxifeno isolado não substitui o tratamento local indicado.",
+          D: "Após abordagem conservadora, a radioterapia é complemento terapêutico clássico para reduzir recorrência local.",
+          E: "CDIS não é achado que costuma involuir espontaneamente na grande maioria."
+        }
+      },
+      30: {
+        comentariosAlternativas: {
+          A: "A situação III, com carcinoma diagnosticado em nódulo axilar por PAAF, não é cenário clássico para indicar sentinela dessa forma.",
+          B: "A situação II também pode ter indicação de sentinela quando há CDIS extenso com cirurgia em que o linfático pode ser alterado.",
+          C: "A situação III é o ponto que invalida a alternativa.",
+          D: "Há indicação nas situações I e II: invasivo submetido a cirurgia conservadora e CDIS selecionado para cirurgia em que o sentinela pode ser necessário.",
+          E: "A situação III não entra como correta na lógica do item."
+        }
+      }
+    };
+
+    // Comentários expandidos entram por fora do array base para manter a estrutura simples e compatível.
+    for (const question of questionBank) {
+      const commentary = expandedCommentary[question.id];
+      if (!commentary || typeof commentary !== "object") {
+        continue;
+      }
+
+      if (commentary.comentariosAlternativas && typeof commentary.comentariosAlternativas === "object") {
+        question.comentariosAlternativas = {
+          ...commentary.comentariosAlternativas,
+          ...(question.comentariosAlternativas || {})
+        };
+      }
+    }
+
     const STORAGE_KEY = "lacir-ca-mama-progress-v1";
     const STORAGE_VERSION = 1;
     const VALID_SCREENS = ["menu", "question", "all", "results"];
@@ -1702,7 +2060,7 @@
             </div>
 
             ${renderFeedback(question, answer)}
-            ${answer ? renderCommentBlock(getQuestionComment(question)) : ""}
+            ${answer ? renderQuestionCommentary(question, answer) : ""}
 
             <div class="question-actions">
               <button class="btn btn-primary" data-action="next" ${answer ? "" : "disabled"}>${nextLabel}</button>
@@ -2270,22 +2628,225 @@
       `;
     }
 
-    function getQuestionComment(question) {
-      return typeof question?.comentario === "string" ? question.comentario.trim() : "";
+    function getCommentText(value) {
+      return typeof value === "string" ? value.trim() : "";
     }
 
-    function renderCommentBlock(comment) {
-      if (!comment) {
+    function getQuestionComment(question) {
+      return getCommentText(question?.comentario);
+    }
+
+    function getAlternativeComments(question) {
+      if (!question?.comentariosAlternativas || typeof question.comentariosAlternativas !== "object") {
+        return {};
+      }
+
+      const comments = {};
+
+      for (const [letter, text] of Object.entries(question.comentariosAlternativas)) {
+        if (!Object.prototype.hasOwnProperty.call(question.alternativas || {}, letter)) {
+          continue;
+        }
+
+        const comment = getCommentText(text);
+        if (comment) {
+          comments[letter] = comment;
+        }
+      }
+
+      return comments;
+    }
+
+    function hasExpandedComments(question) {
+      return Object.keys(getAlternativeComments(question)).length > 0;
+    }
+
+    function getAlternativeReference(question, letter) {
+      if (!letter || !Object.prototype.hasOwnProperty.call(question?.alternativas || {}, letter)) {
+        return "";
+      }
+
+      return `${letter}. ${question.alternativas[letter]}`;
+    }
+
+    function getQuestionCommentData(question, answer = null) {
+      const generalComment = getQuestionComment(question);
+      const alternativeComments = getAlternativeComments(question);
+      const correctLetter = question?.correta || "";
+      const correctComment = getCommentText(alternativeComments[correctLetter]);
+      const selectedLetter = answer?.selected || "";
+      const selectedComment = selectedLetter && selectedLetter !== correctLetter
+        ? getCommentText(alternativeComments[selectedLetter])
+        : "";
+      const dedupedGeneralComment = generalComment && generalComment !== correctComment
+        ? generalComment
+        : "";
+      const visibleLetters = new Set(
+        [correctComment ? correctLetter : "", selectedComment ? selectedLetter : ""].filter(Boolean)
+      );
+      const hiddenAlternativeComments = Object.keys(alternativeComments).filter((letter) => !visibleLetters.has(letter)).length;
+
+      return {
+        generalComment: dedupedGeneralComment,
+        correctLetter,
+        correctComment,
+        selectedLetter,
+        selectedComment,
+        alternativeComments,
+        hasExpandedComments: hasExpandedComments(question),
+        hasAny: Boolean(
+          dedupedGeneralComment ||
+          generalComment ||
+          correctComment ||
+          selectedComment ||
+          Object.keys(alternativeComments).length
+        ),
+        shouldShowAllAlternativeComments: hiddenAlternativeComments > 0
+      };
+    }
+
+    function renderCommentBlock(config) {
+      const options = typeof config === "string"
+        ? { title: "Comentário do gabarito", body: config, badge: "Síntese clínica" }
+        : (config || {});
+      const body = getCommentText(options.body);
+
+      if (!body) {
+        return "";
+      }
+
+      const reference = getCommentText(options.reference);
+      const badge = getCommentText(options.badge);
+
+      return `
+        <div class="comment-section ${options.tone || ""}">
+          <div class="comment-section-header">
+            <h4>${escapeHtml(options.title || "Comentário do gabarito")}</h4>
+            ${badge ? `<span>${escapeHtml(badge)}</span>` : ""}
+          </div>
+          ${reference ? `<p class="comment-option-ref">${escapeHtml(reference)}</p>` : ""}
+          <p>${escapeHtml(body)}</p>
+        </div>
+      `;
+    }
+
+    function renderGeneralComment(comment) {
+      return renderCommentBlock({
+        title: "Comentário geral",
+        body: comment,
+        badge: "Visão clínica"
+      });
+    }
+
+    function renderCorrectAlternativeComment(question, letter, text) {
+      return renderCommentBlock({
+        title: "Comentário da alternativa correta",
+        body: text,
+        reference: getAlternativeReference(question, letter),
+        badge: letter ? `Alternativa ${letter}` : "",
+        tone: "is-correct"
+      });
+    }
+
+    function renderSelectedAlternativeComment(question, letter, text) {
+      return renderCommentBlock({
+        title: "Por que a sua alternativa está incorreta",
+        body: text,
+        reference: getAlternativeReference(question, letter),
+        badge: letter ? `Alternativa ${letter}` : "",
+        tone: "is-selected"
+      });
+    }
+
+    function renderGabaritoSection(question) {
+      return renderCommentBlock({
+        title: "Gabarito",
+        body: "Use esta alternativa como referência principal para revisar a lógica do item.",
+        reference: getAlternativeReference(question, question.correta),
+        badge: question?.correta ? `Alternativa ${question.correta}` : "",
+        tone: "is-correct"
+      });
+    }
+
+    function renderAllAlternativeComments(question, commentsMap, summaryLabel, answer = null) {
+      const entries = Object.entries(question.alternativas || {}).filter(([letter]) => getCommentText(commentsMap?.[letter]));
+
+      if (!entries.length) {
         return "";
       }
 
       return `
-        <section class="comment-card" aria-label="Comentário do gabarito">
+        <details class="analysis-accordion">
+          <summary>${escapeHtml(summaryLabel)}</summary>
+          <div class="analysis-accordion-body">
+            <div class="analysis-list">
+              ${entries.map(([letter, text]) => `
+                <div class="analysis-item ${letter === question.correta ? "is-correct" : ""} ${answer && answer.selected === letter && answer.selected !== question.correta ? "is-selected" : ""}">
+                  <h4>${escapeHtml(`Alternativa ${letter}`)}</h4>
+                  <p class="comment-option-ref">${escapeHtml(getAlternativeReference(question, letter))}</p>
+                  <p>${escapeHtml(commentsMap[letter])}</p>
+                </div>
+              `).join("")}
+            </div>
+          </div>
+        </details>
+      `;
+    }
+
+    function renderQuestionCommentary(question, answer) {
+      const commentData = getQuestionCommentData(question, answer);
+
+      if (!commentData.hasAny) {
+        return "";
+      }
+
+      return `
+        <section class="comment-card" aria-label="Comentário expandido do gabarito">
           <div class="comment-card-header">
             <strong class="comment-card-title">Comentário do gabarito</strong>
-            <span>Síntese clínica</span>
+            <span>${commentData.hasExpandedComments ? "Análise expandida" : "Síntese clínica"}</span>
           </div>
-          <p>${escapeHtml(comment)}</p>
+
+          <div class="comment-stack">
+            ${renderGeneralComment(commentData.generalComment)}
+            ${renderCorrectAlternativeComment(question, commentData.correctLetter, commentData.correctComment)}
+            ${renderSelectedAlternativeComment(question, commentData.selectedLetter, commentData.selectedComment)}
+          </div>
+
+          ${commentData.shouldShowAllAlternativeComments
+            ? renderAllAlternativeComments(question, commentData.alternativeComments, "Ver análise completa das alternativas", answer)
+            : ""}
+        </section>
+      `;
+    }
+
+    function renderLibraryCommentary(question) {
+      const answer = state.answers[question.id] || null;
+      const commentData = getQuestionCommentData(question, answer);
+      const alternativeCommentCount = Object.keys(commentData.alternativeComments).length;
+
+      if (!commentData.hasAny) {
+        return "";
+      }
+
+      return `
+        <section class="comment-card" aria-label="Comentários do gabarito">
+          <div class="comment-card-header">
+            <strong class="comment-card-title">Comentários do gabarito</strong>
+            <span>${commentData.hasExpandedComments ? "Estrutura expandida" : "Síntese clínica"}</span>
+          </div>
+
+          <div class="comment-stack">
+            ${renderGabaritoSection(question)}
+            ${renderGeneralComment(commentData.generalComment)}
+            ${alternativeCommentCount === 1
+              ? renderCorrectAlternativeComment(question, commentData.correctLetter, commentData.correctComment)
+              : ""}
+          </div>
+
+          ${alternativeCommentCount > 1
+            ? renderAllAlternativeComments(question, commentData.alternativeComments, "Comentários por alternativa", answer)
+            : ""}
         </section>
       `;
     }
@@ -2333,7 +2894,7 @@
               `).join("")}
             </div>
 
-            ${renderCommentBlock(getQuestionComment(question))}
+            ${renderLibraryCommentary(question)}
 
             <div class="library-footer">
               <div class="summary-meta">
@@ -2389,7 +2950,9 @@
           question.id,
           question.tema,
           question.enunciado,
+          getQuestionComment(question),
           question.correta,
+          Object.values(getAlternativeComments(question)).join(" "),
           Object.entries(question.alternativas)
             .map(([letter, text]) => `${letter} ${text}`)
             .join(" ")
