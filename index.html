@@ -685,6 +685,56 @@
       color: var(--accent-strong);
     }
 
+    .comment-card {
+      margin-bottom: 22px;
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid rgba(31, 122, 99, 0.14);
+      background:
+        linear-gradient(180deg, rgba(31, 122, 99, 0.08), rgba(255, 255, 255, 0.96)),
+        rgba(255, 255, 255, 0.92);
+      box-shadow: var(--shadow-md);
+      display: grid;
+      gap: 12px;
+    }
+
+    .comment-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .comment-card-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1rem;
+      color: var(--accent-strong);
+    }
+
+    .comment-card-title::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, var(--warning), var(--accent));
+      box-shadow: 0 0 0 6px rgba(31, 122, 99, 0.09);
+      flex-shrink: 0;
+    }
+
+    .comment-card span {
+      color: var(--text-soft);
+      font-size: 0.9rem;
+    }
+
+    .comment-card p {
+      margin: 0;
+      color: var(--text-soft);
+      line-height: 1.72;
+    }
+
     .side-rail {
       display: grid;
       gap: 16px;
@@ -1108,7 +1158,7 @@
           D: "Mamografia, para orientação do diagnóstico."
         },
         correta: "D",
-        comentario: ""
+        comentario: "Em paciente sintomática com suspeita clínica de câncer de mama, a mamografia passa a ter finalidade diagnóstica."
       },
       {
         id: 2,
@@ -1122,7 +1172,7 @@
           E: "Fibroadenoma"
         },
         correta: "D",
-        comentario: ""
+        comentario: "O conjunto de eritema difuso, edema, endurecimento e progressão rápida é clássico de carcinoma inflamatório."
       },
       {
         id: 3,
@@ -1135,7 +1185,7 @@
           D: "O exame clínico é característico de cisto mamário."
         },
         correta: "B",
-        comentario: ""
+        comentario: "Lesão palpável suspeita deve ser confirmada histologicamente, idealmente por biópsia com agulha grossa, guiada se necessário."
       },
       {
         id: 4,
@@ -1149,7 +1199,7 @@
           E: "As afirmativas I, II e III são falsas."
         },
         correta: "B",
-        comentario: ""
+        comentario: "A I está de acordo com a associação de BRCA a pâncreas e próstata; a III reproduz, em lógica de prova, os riscos clássicos atribuídos ao BRCA2."
       },
       {
         id: 5,
@@ -1162,7 +1212,7 @@
           D: "intestino e endométrio"
         },
         correta: "A",
-        comentario: ""
+        comentario: "BRCA1 aumenta de forma importante o risco de câncer de mama e de ovário."
       },
       {
         id: 6,
@@ -1176,7 +1226,7 @@
           E: "ausência de invasão vascular, dificultando o acesso do quimioterápico à lesão"
         },
         correta: "D",
-        comentario: ""
+        comentario: "Ki-67 elevado sugere maior atividade proliferativa e se associa a maior agressividade tumoral."
       },
       {
         id: 7,
@@ -1189,7 +1239,7 @@
           D: "Caso essa paciente seja submetida à cirurgia conservadora, a margem ideal é de 1 cm para que não precise de radioterapia adjuvante."
         },
         correta: "B",
-        comentario: ""
+        comentario: "Em mulher pré-menopausada com tumor luminal, o tamoxifeno é opção endócrina adjuvante clássica."
       },
       {
         id: 8,
@@ -1203,7 +1253,7 @@
           E: "Amamentação prolongada."
         },
         correta: "A",
-        comentario: ""
+        comentario: "Nuliparidade aumenta o tempo de exposição hormonal ao longo da vida e é fator de risco conhecido."
       },
       {
         id: 9,
@@ -1217,7 +1267,7 @@
           E: "autossômica dominante ligada ao X."
         },
         correta: "C",
-        comentario: ""
+        comentario: "BRCA1 é classicamente descrito como autossômico dominante com elevada penetrância."
       },
       {
         id: 10,
@@ -1230,7 +1280,7 @@
           D: "nuliparidade e consumo regular de álcool."
         },
         correta: "D",
-        comentario: ""
+        comentario: "Nuliparidade e consumo regular de álcool são fatores epidemiologicamente reconhecidos."
       },
       {
         id: 11,
@@ -1244,7 +1294,7 @@
           E: "hormonioterapia + quadrantectomia e linfadectomia axilar."
         },
         correta: "D",
-        comentario: ""
+        comentario: "A neoadjuvância pode reduzir volume tumoral e permitir cirurgia conservadora, seguida de abordagem axilar e radioterapia, se houver boa resposta e viabilidade técnica."
       },
       {
         id: 12,
@@ -1257,7 +1307,7 @@
           D: "Somente se houver alteração clínica."
         },
         correta: "C",
-        comentario: ""
+        comentario: "No seguimento de câncer de mama, a mamografia da mama remanescente deve ser mantida anualmente; não se indica encurtar rotineiramente para semestral nem espaçar excessivamente."
       },
       {
         id: 13,
@@ -1270,7 +1320,7 @@
           D: "o autoexame e a ultrassonografia são fortemente recomendados para prevenção primária e secundária"
         },
         correta: "C",
-        comentario: ""
+        comentario: "O achado típico é nódulo indolor, endurecido, irregular e por vezes aderido aos planos profundos."
       },
       {
         id: 14,
@@ -1283,7 +1333,7 @@
           D: "Quadrantectomia com pesquisa de linfonodo sentinela."
         },
         correta: "B",
-        comentario: ""
+        comentario: "O quadro sugere doença localmente avançada, em que quimioterapia primária/neoadjuvante é conduta adequada."
       },
       {
         id: 15,
@@ -1297,7 +1347,7 @@
           E: "As afirmativas I, II e III são falsas."
         },
         correta: "B",
-        comentario: ""
+        comentario: "Calcificações distróficas e células ductais pleomórficas são achados esperados no CDIS de alto grau tipo comedo."
       },
       {
         id: 16,
@@ -1311,7 +1361,7 @@
           E: "Carcinoma papilar invasivo."
         },
         correta: "C",
-        comentario: ""
+        comentario: "O carcinoma mucinoso frequentemente tem contornos relativamente bem definidos e pode simular lesão benigna na imagem."
       },
       {
         id: 17,
@@ -1324,7 +1374,7 @@
           D: "a LAP está, frequentemente associada sempre ao câncer de mama e é necessário realizar biópsia para esclarecimento diagnóstico."
         },
         correta: "C",
-        comentario: ""
+        comentario: "A adenopatia pode ser vacinal se for ipsilateral, mas a investigação de suspeita oncológica deve seguir quando indicada."
       },
       {
         id: 18,
@@ -1337,7 +1387,7 @@
           D: "indicar quadrantectomia e radioterapia."
         },
         correta: "C",
-        comentario: ""
+        comentario: "Nessa faixa etária, nódulo sólido palpável deve ser avaliado com mamografia bilateral, geralmente em combinação posterior com outros métodos conforme achados."
       },
       {
         id: 19,
@@ -1351,7 +1401,7 @@
           E: "No TNM da AJCC 8ª edição, o carcinoma inflamatório é classificado com “T2d”."
         },
         correta: "B",
-        comentario: ""
+        comentario: "Em carcinoma inflamatório, a biópsia do linfonodo sentinela não é recomendada como estratégia padrão."
       },
       {
         id: 20,
@@ -1364,7 +1414,7 @@
           D: "Quimioterapia adjuvante seguida de hormonioterapia por 5 anos."
         },
         correta: "A",
-        comentario: ""
+        comentario: "No contexto da questão e das opções dadas, tamoxifeno é a estratégia adjuvante respaldada para reduzir recorrência em doença RH positiva."
       },
       {
         id: 21,
@@ -1378,7 +1428,7 @@
           E: "O exame histopatológico é o padrão ouro para o diagnóstico de câncer de mama."
         },
         correta: "E",
-        comentario: ""
+        comentario: "O padrão-ouro para diagnóstico é o exame histopatológico."
       },
       {
         id: 22,
@@ -1391,7 +1441,7 @@
           D: "Mamografia e ultrassonografia de mamas a cada 6 meses."
         },
         correta: "B",
-        comentario: ""
+        comentario: "Mastectomia bilateral redutora de risco e ooforectomia bilateral fazem parte das estratégias profiláticas clássicas em portadoras de BRCA1."
       },
       {
         id: 23,
@@ -1404,7 +1454,7 @@
           D: "Mastectomia radical modificada + biópsia do linfonodo sentinela."
         },
         correta: "C",
-        comentario: ""
+        comentario: "Setorectomia com biópsia do linfonodo sentinela e radioterapia é abordagem local adequada para tumor inicial com axila negativa."
       },
       {
         id: 24,
@@ -1418,7 +1468,7 @@
           E: "salpingo-ooforectomia, retosigmoidectomia e pancreatectomia total."
         },
         correta: "A",
-        comentario: ""
+        comentario: "BRCA1 relaciona-se a salpingo-ooforectomia profilática, APC à proctocolectomia total, e CDH1 à gastrectomia total profilática."
       },
       {
         id: 25,
@@ -1431,7 +1481,7 @@
           D: "Acetato de medroxiprogesterona de depósito."
         },
         correta: "A",
-        comentario: ""
+        comentario: "O DIU de cobre é método eficaz, não hormonal, e geralmente preferido em mulheres com história recente de câncer de mama."
       },
       {
         id: 26,
@@ -1444,7 +1494,7 @@
           D: "Luminal HER-positivo."
         },
         correta: "D",
-        comentario: ""
+        comentario: "O uso de trastuzumabe aponta para doença HER2 positiva, e o uso de inibidor de aromatase sugere também expressão hormonal: padrão luminal HER2-positivo."
       },
       {
         id: 27,
@@ -1457,7 +1507,7 @@
           D: "Uso de tamoxifeno ou raloxifeno pode interferir neste risco."
         },
         correta: "B",
-        comentario: ""
+        comentario: "A penetrância é variável; o risco é alto, porém não idêntico para todas as portadoras."
       },
       {
         id: 28,
@@ -1471,7 +1521,7 @@
           E: "A alta densidade mamográfica, sobretudo depois da menopausa, traduz um campo fértil para câncer de mama, com risco relativo entre 2 e 4."
         },
         correta: "E",
-        comentario: ""
+        comentario: "Alta densidade mamográfica é fator de risco reconhecido, com aumento relativo de risco em torno de 2 a 4 vezes."
       },
       {
         id: 29,
@@ -1485,7 +1535,7 @@
           E: "É um achado acidental de biópsias mamárias e, na grande maioria, costuma involuir."
         },
         correta: "D",
-        comentario: ""
+        comentario: "Após abordagem conservadora, a radioterapia é complemento terapêutico clássico para reduzir recorrência local."
       },
       {
         id: 30,
@@ -1499,7 +1549,7 @@
           E: "I e III, apenas."
         },
         correta: "D",
-        comentario: ""
+        comentario: "Há indicação nas situações I e II: invasivo submetido a cirurgia conservadora e CDIS selecionado para cirurgia em que o sentinela pode ser necessário."
       }
     ];
 
@@ -1652,6 +1702,7 @@
             </div>
 
             ${renderFeedback(question, answer)}
+            ${answer ? renderCommentBlock(getQuestionComment(question)) : ""}
 
             <div class="question-actions">
               <button class="btn btn-primary" data-action="next" ${answer ? "" : "disabled"}>${nextLabel}</button>
@@ -2215,25 +2266,27 @@
               ? `Você marcou a alternativa ${escapeHtml(selected)}, que é a correta.`
               : `Você marcou a alternativa ${escapeHtml(selected)}, mas a correta é ${escapeHtml(correct)}.`}
           </p>
-          ${renderCommentBlock(question)}
         </section>
       `;
     }
 
-    function renderCommentBlock(question) {
-      const comment = typeof question.comentario === "string" ? question.comentario.trim() : "";
+    function getQuestionComment(question) {
+      return typeof question?.comentario === "string" ? question.comentario.trim() : "";
+    }
+
+    function renderCommentBlock(comment) {
       if (!comment) {
         return "";
       }
 
       return `
-        <div class="progress-card">
-          <div class="progress-header">
-            <strong>Comentário do gabarito</strong>
-            <span>Campo já suportado pela arquitetura</span>
+        <section class="comment-card" aria-label="Comentário do gabarito">
+          <div class="comment-card-header">
+            <strong class="comment-card-title">Comentário do gabarito</strong>
+            <span>Síntese clínica</span>
           </div>
-          <p class="muted">${escapeHtml(comment)}</p>
-        </div>
+          <p>${escapeHtml(comment)}</p>
+        </section>
       `;
     }
 
@@ -2280,7 +2333,7 @@
               `).join("")}
             </div>
 
-            ${renderCommentBlock(question)}
+            ${renderCommentBlock(getQuestionComment(question))}
 
             <div class="library-footer">
               <div class="summary-meta">
